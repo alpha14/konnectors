@@ -77,7 +77,6 @@ module.exports = class KonnectorView extends BaseView
         importInterval = $("##{slug}-autoimport-input").val()
 
         @model.set 'importInterval', importInterval
-        console.log importInterval
         @model.save
             success: =>
                 alert "import succeeded"
