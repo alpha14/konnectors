@@ -3,7 +3,6 @@ RealtimeAdapter = require 'cozy-realtime-adapter'
 initKonnectors = require './server/init/konnectors'
 patchKonnectors = require './server/init/patch'
 poller = require './server/lib/konnector_poller'
-autostopcheck = require './server/init/autostop'
 
 process.env.TZ = 'UTC'
 
@@ -16,5 +15,4 @@ params =
 americano.start params, (app, server) ->
     realtime = RealtimeAdapter server: server, ['konnector.update']
     initKonnectors ->
-        autostopcheck()
         patchKonnectors -> poller.start()
