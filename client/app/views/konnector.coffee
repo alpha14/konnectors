@@ -1,4 +1,5 @@
 BaseView = require '../lib/base_view'
+request = require '../lib/request'
 
 module.exports = class KonnectorView extends BaseView
     template: require './templates/konnector'
@@ -75,6 +76,16 @@ module.exports = class KonnectorView extends BaseView
         @model.set 'fieldValues', fieldValues
         importInterval = 'none'
         importInterval = $("##{slug}-autoimport-input").val()
+        if importInterval isnt 'none'
+            request.get 'autoimport', (err, state) =>
+                if err
+                    console.log err
+                else
+                    if state is false
+                        console.log "debug: auto-import not active"
+                    else
+                        console.log "debug: auto-import active"
+                        # Show message to the user
 
         @model.set 'importInterval', importInterval
         @model.save

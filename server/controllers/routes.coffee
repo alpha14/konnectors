@@ -2,6 +2,7 @@
 
 konnectors = require './konnectors'
 folders = require './folders'
+autostop = require './autostop'
 
 module.exports =
     'konnectorId':
@@ -16,3 +17,6 @@ module.exports =
 
     'folders':
         get: folders.all
+
+    'autoimport':
+        get: autostop.state
