@@ -439,12 +439,14 @@ module.exports = AppView = (function(_super) {
 });
 
 require.register("views/konnector", function(exports, require, module) {
-var BaseView, KonnectorView,
+var BaseView, KonnectorView, request,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 BaseView = require('../lib/base_view');
+
+request = require('../lib/request');
 
 module.exports = KonnectorView = (function(_super) {
   __extends(KonnectorView, _super);
@@ -528,8 +530,22 @@ module.exports = KonnectorView = (function(_super) {
     this.model.set('fieldValues', fieldValues);
     importInterval = 'none';
     importInterval = $("#" + slug + "-autoimport-input").val();
+    if (importInterval !== 'none') {
+      request.get('autoimport', (function(_this) {
+        return function(err, state) {
+          if (err) {
+            return console.log(err);
+          } else {
+            if (state === false) {
+              return console.log("debug: auto-import not active");
+            } else {
+              return console.log("debug: auto-import active");
+            }
+          }
+        };
+      })(this));
+    }
     this.model.set('importInterval', importInterval);
-    console.log(importInterval);
     return this.model.save({
       success: (function(_this) {
         return function() {
