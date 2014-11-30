@@ -60,15 +60,7 @@ module.exports = class KonnectorView extends BaseView
             fieldHtml += "<option value=\"#{key}\" #{selected}>#{value}</option>"
 
         fieldHtml += """
-</select>
-<select id="#{slug}-startimport-input" class="startimport">
-    """
-        startimport = {none: "Options"} ## Todo : list days of the week, and days of the month
-        for key, value of startimport
-            fieldHtml += "<option value=\"#{key}\" >#{value}</option>"
-
-        fieldHtml += """
-</select></div></div>
+</select></div>
 """
         @$('.fields').append fieldHtml
 
